@@ -1,5 +1,6 @@
 * {
     padding: 1px;
+    cursor: url('./Untitled.png'), auto;
 }
 
 body {
@@ -31,6 +32,7 @@ body {
     border: 0.4rem solid rgb(6, 5, 63);
     border-radius: 1rem;
     padding: 10px;
+    user-select: none;
 }
 
 #screen {
@@ -44,11 +46,6 @@ body {
     margin: 10px;
 }
 
-#screen:hover {
-    user-select: none;
-    cursor: not-allowed;
-}
-
 #curr-operation {
     text-align: right;
     padding: 10px;
@@ -56,23 +53,10 @@ body {
     font-size: 20px;
 }
 
-#bottom-screen {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: end;
-}
-
 #curr-input {
-    text-align: center;
+    text-align: right;
     font-size: 40px;
-}
-
-#curr-operator {
-    font-size: 30px;
-    text-align: center;
-    width: 20px;
-    padding: 5px;
+    padding-right: 10px;
 }
 
 .buttons {
@@ -91,22 +75,20 @@ body {
 
 .buttons:active {
     box-shadow: inset -3px 3px 3px 3px rgb(12, 12, 53);
+    transform: scale(.98);
 }
 
 .numerical:hover,
 .dot:hover {
-    cursor: url('./Untitled.png'), auto;
-    background-color: #01004bc7;
+    background-color: #0200703b;
 }
 
 #column-4 > .buttons:hover,
 #column-5 > .buttons:hover {
-    cursor: url('./Untitled.png'), auto;
-    background-color: rgba(0, 0, 0, 0.726);
+    background-color: rgba(119, 116, 116, 0.836);
 }
 
 #column-5 > .equals:hover {
-    cursor: url('./Untitled.png'), auto;
     background-color: darkslategrey;
     color: #fff;
     transition: background-color 1s ease, color 1s ease;
