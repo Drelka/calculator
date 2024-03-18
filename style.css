@@ -91,20 +91,58 @@ body {
 #column-5 > .equals:hover {
     background-color: darkslategrey;
     color: #fff;
-    transition: background-color 1s ease, color 1s ease;
+    transition: background-color .1s ease, color .1s ease;
 }
 
 #column-5 > .equals:not(:hover) {
     /* background-color: black; */
-    transition: background-color 2s ease, color 2s ease;
+    transition: background-color .2s ease, color .2s ease;
 }
 
 #buttons-field {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     flex: 1 1 0;
     justify-content: space-evenly;
     gap: 5px;
+}
+
+#top-buttons {
+    display: flex;
+    gap: 5px;
+}
+
+.delete,
+.clear {
+    color: rgb(221, 61, 40);
+    background-color: rgb(83, 83, 83);
+    flex: 1;
+}
+
+.delete:hover,
+.clear:hover {
+    background-color: rgba(24, 21, 20, 0.829);
+}
+
+.toggle {
+    align-self: center;
+    height: 30px;
+    width: 50px;
+    border: 5px solid green;
+    border-radius: 20px;
+    appearance: none;
+}
+
+/* .toggle::after {
+
+}
+
+.toggle:checked {
+
+} */
+
+#bottom-buttons {
+    display: flex;
 }
 
 #column-1,

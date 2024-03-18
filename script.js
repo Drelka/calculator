@@ -13,16 +13,24 @@ const inputButtons = document.querySelectorAll(".input-buttons");
 const numerical = document.querySelectorAll(".numerical");
 const operators = document.querySelectorAll(".operators");
 
+const clearBtn = document.querySelector(".clear");
+const deleteBtn = document.querySelector(".delete");
+
 const currInput = document.querySelector("#curr-input");
 const currOperation = document.querySelector("#curr-operation")
 
 let firstOperand = "";
 let secondOperand = "";
-let currOperator = null;
 let score = "";
+let currOperator = currOperation.textContent.slice(this.length - 1).toString();
 
 errorReset = function() {
-    if (currInput.innerText === "Error") currInput.innerText = "";
+    if (currInput.innerText.includes("Error") 
+    || currInput.innerText.includes("NaN")) {
+        currInput.innerText = "";
+        currOperation.innerText = "";
+        currOperator = null;
+    }
 }
 
 inputTooLongError = function (x) {
@@ -38,6 +46,7 @@ numerical.forEach(number => {
 });
 
 dot.addEventListener("click", () => {
+    errorReset();
     if (!currInput.innerText.includes(".")) {
         return currInput.innerText += dot.innerText; 
     }   
@@ -45,10 +54,11 @@ dot.addEventListener("click", () => {
 
 operators.forEach(operator => {
     operator.addEventListener("click", () => {
+        errorReset();
         currOperator = operator.innerText;
         let botScreenValue = currInput;
+        if (currInput.innerText === "Error") currInput.innerText = "";
         if (currInput.innerText !== "") {
-            console.log(currInput.innerText.toString());
             currOperation.innerText = botScreenValue.innerText + " " + currOperator;
         } else {
             x = currOperation.innerText; 
@@ -58,52 +68,61 @@ operators.forEach(operator => {
     });
 });
 
-const percentageOperation = function(firstOperand, secondOperand) {
-    return (firstOperand / 100) * secondOperand;
-}    
-
-const rootOperation = function(firstOperand, secondOperand) {
-    return firstOperand ** (1 / secondOperand);
-}    
-
-const addOperation = function(firstOperand, secondOperand) {
-    return firstOperand + secondOperand;
-}    
-
-const subtractOperation = function(firstOperand, secondOperand) {
-    return firstOperand - secondOperand;
-}    
-
-const multiplyOperation = function(firstOperand, secondOperand) {
-    return firstOperand * secondOperand;
-}    
-
-const divideOperation = function(firstOperand, secondOperand) {
-    return secondOperand === 0? alert("Can't divide by zero!") : firstOperand / secondOperand;
-}    
-
+const oper_Percentage = function(firstOperand, secondOperand) {
+    return (firstOperand / 100) * secondOperand;}
+const oper_Root = function(firstOperand, secondOperand) {
+    return firstOperand ** (1 / secondOperand);}
+const oper_Add = function(firstOperand, secondOperand) {
+    return firstOperand + secondOperand;}
+const oper_Subtract = function(firstOperand, secondOperand) {
+    return firstOperand - secondOperand;}
+const oper_Multiply = function(firstOperand, secondOperand) {
+    return firstOperand * secondOperand;}
+const oper_Divide = function(firstOperand, secondOperand) {
+    return secondOperand === 0? alert("Can't divide by zero!") : firstOperand / secondOperand;}
 
 const operate = function(currOperator) {
-    if (currOperator === "%") return percentageOperation(firstOperand, secondOperand);
-    if (currOperator === "√") return rootOperation(firstOperand, secondOperand);
-    if (currOperator === "+") return addOperation(firstOperand, secondOperand);
-    if (currOperator === "-") return subtractOperation(firstOperand, secondOperand);
-    if (currOperator === "×") return multiplyOperation(firstOperand, secondOperand);
-    if (currOperator === "÷") return divideOperation(firstOperand, secondOperand);
+    if (currOperator === "%") return oper_Percentage(firstOperand, secondOperand);
+    if (currOperator === "√") return oper_Root(firstOperand, secondOperand);
+    if (currOperator === "+") return oper_Add(firstOperand, secondOperand);
+    if (currOperator === "-") return oper_Subtract(firstOperand, secondOperand);
+    if (currOperator === "×") return oper_Multiply(firstOperand, secondOperand);
+    if (currOperator === "÷") return oper_Divide(firstOperand, secondOperand);
 }
 
+clear = clearBtn.addEventListener("click", () => {
+    currOperation.innerText = "";
+    currInput.innerText = "0";
+    currOperator.innerText = null;
+});
+
+backspace = deleteBtn.addEventListener("click", () => {
+    if (currInput.innerText.includes("Error")
+    || currInput.innerText.includes("NaN")
+    || currInput.innerText === ""
+    || currInput.innerText === "0") {
+        currInput.innerText = "0";
+    } else {
+        currInput.innerText = currInput.innerText.slice(0, -1);
+    }
+});
+
 singleOperation = equals.addEventListener("click", () => {
-    
+    errorReset();
     if (!currOperation.innerText.includes("=")) {
         let botScreenValue = currInput.innerText;
-        
         firstOperand = +(currOperation.textContent.slice(0, -2));
         secondOperand = +(botScreenValue);
-        currOperator = currOperation.textContent.slice(this.length - 1).toString();
-        
         score = operate(currOperator);
         currOperation.innerText += " " + botScreenValue + " =";
     }
     currInput.innerText = Math.round(score *10000) / 10000;
     inputTooLongError(currInput);
+});
+
+multipleOperation = operators.forEach(operator => {
+    operator.addEventListener("click", () => {
+        errorReset();
+
+    });
 });
