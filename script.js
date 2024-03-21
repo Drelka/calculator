@@ -40,6 +40,8 @@ inputTooLongError = function (x) {
 numerical.forEach(number => {
     number.addEventListener("click", () => {
         errorReset();
+        if (currInput.innerText === "0"
+        || currInput.innerText === "00") currInput.innerText = "";
         currInput.innerText += number.innerText;
         inputTooLongError(currInput);
     });    
@@ -65,6 +67,17 @@ operators.forEach(operator => {
             currOperation.innerText = x.slice(0, -1) + currOperator; 
         }
         if (currOperation.innerText !== "") currInput.innerText = "";
+
+        // if (currOperation.innerText.slice(this.length -1) !== ""
+        // || currOperation.innerText.slice(this.length -1) !== " "
+        // || currOperation.innerText.slice(this.length -1) === NaN){
+        //     let x = currInput.innerText;
+        //     firstOperand = +(currOperation.textContent.slice(0, -2));
+        //     secondOperand = +(x);
+        //     score = operate(currOperator);
+        //     currOperation.innerText = currInput.innerText;
+        //     currInput.innerText = currOperation.innerText;
+        // }
     });
 });
 
@@ -100,7 +113,8 @@ backspace = deleteBtn.addEventListener("click", () => {
     if (currInput.innerText.includes("Error")
     || currInput.innerText.includes("NaN")
     || currInput.innerText === ""
-    || currInput.innerText === "0") {
+    || currInput.innerText === "0"
+    || currInput.innerText.length === 1) {
         currInput.innerText = "0";
     } else {
         currInput.innerText = currInput.innerText.slice(0, -1);
@@ -109,7 +123,10 @@ backspace = deleteBtn.addEventListener("click", () => {
 
 singleOperation = equals.addEventListener("click", () => {
     errorReset();
-    if (!currOperation.innerText.includes("=")) {
+    if (currOperation.innerText === "") {
+        currOperation.innerText = currInput.innerText;
+        currOperation.innerText += " =";
+    } else if (!currOperation.innerText.includes("=")) {
         let botScreenValue = currInput.innerText;
         firstOperand = +(currOperation.textContent.slice(0, -2));
         secondOperand = +(botScreenValue);
@@ -120,9 +137,3 @@ singleOperation = equals.addEventListener("click", () => {
     inputTooLongError(currInput);
 });
 
-multipleOperation = operators.forEach(operator => {
-    operator.addEventListener("click", () => {
-        errorReset();
-
-    });
-});

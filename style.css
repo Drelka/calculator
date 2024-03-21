@@ -124,23 +124,6 @@ body {
     background-color: rgba(24, 21, 20, 0.829);
 }
 
-.toggle {
-    align-self: center;
-    height: 30px;
-    width: 50px;
-    border: 5px solid green;
-    border-radius: 20px;
-    appearance: none;
-}
-
-/* .toggle::after {
-
-}
-
-.toggle:checked {
-
-} */
-
 #bottom-buttons {
     display: flex;
 }
